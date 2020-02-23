@@ -1,0 +1,19 @@
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<video id="video" autoplay="" muted="muted"></video>
+<script>
+    var video = document.getElementById('video');
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource('http://127.0.0.1:8000/media/ED0DBD44-1BA0-47C9-8D6E-0C067992DFA4/stream/');
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = 'http://127.0.0.1:8000/media/ED0DBD44-1BA0-47C9-8D6E-0C067992DFA4/stream/';
+        video.addEventListener('loadedmetadata', function() {
+            video.play();
+        });
+    }
+</script>
